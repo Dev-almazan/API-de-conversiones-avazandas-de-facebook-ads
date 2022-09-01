@@ -53,8 +53,7 @@
 
                                         $data["ip"] = $_SERVER["REMOTE_ADDR"];
 
-                                        $data["navegador"] = $datos -> navegador_value ;
-
+                                        $data["navegador"] = $_SERVER['HTTP_USER_AGENT'] ;
 
                                         $data["email"] = hash('sha256',$datos -> email_value) ; //VALOR ENCRYPTADO
 
@@ -63,31 +62,35 @@
 
                                         /* 3 - CONECTAMOS CON API DE FACEBOOK */
        
-                                        $api = 'https://graph.facebook.com/v14.0/162098695936825/events/';
+                                        $api = 'https://graph.facebook.com/v14.0/162098695936825/events?access_token=EAALMgvtn2LgBAKErMw0YGn7NquUkV9ZBnvPH6z9Rbf6mgl7Xq88O6X1ng8ZCTXT2zEiY6Xqngtlj17QGQ8rm9q7aV6w4Pycj9WXPGInyMbzYEuuf2VFqetPV4i6k6pJHJ0EgOtN9yo4FuZC901KqFNaYYI9te7maYotXGDfZAiaS2NwrXrkW';
 
 
 
                                         $array["event_name"]=$data["evento"];
                                         $array["event_time"]=$data["momento"];
-                                        $array["action_source"]=$data["origen"];
                                         $array["event_source_url"]=$data["url"];
-                                        $array["client_ip_address"]=$data["ip"];
-                                        $array["client_user_agent"]=$data["navegador"];
+                                        $array["action_source"]=$data["origen"];
+                                       
+
                                         $array["user_data"]["em"]=$data["email"];
                                         $array["user_data"]["ph"]=$data["telefono"];
-    
+                                        $array["user_data"]["client_ip_address"]=$data["ip"];
+                                        $array["user_data"]["client_user_agent"]=$data["navegador"];
+                                    
 
+                                    
                                         $array_data = array($array);
 
                                         $fields = array();
 
                                         
-                                        $fields['access_token'] = '';
-                                        $fields['test_event_code'] = 'TEST4000';
+                                        $fields['access_token'] = 'EAALMgvtn2LgBAKErMw0YGn7NquUkV9ZBnvPH6z9Rbf6mgl7Xq88O6X1ng8ZCTXT2zEiY6Xqngtlj17QGQ8rm9q7aV6w4Pycj9WXPGInyMbzYEuuf2VFqetPV4i6k6pJHJ0EgOtN9yo4FuZC901KqFNaYYI9te7maYotXGDfZAiaS2NwrXrkW';
                                         $fields['data'] = $array_data;
+                                        $fields['test_event_code'] = 'TEST96287';
                                        
                                         json_encode($fields);
-                                        
+                                      
+                                       
                                                     
                                         $ch = @curl_init();
                                             @curl_setopt($ch, CURLOPT_POST, true);
@@ -99,18 +102,24 @@
                                             $status_code = @curl_getinfo($ch, CURLINFO_HTTP_CODE); 
                                         @curl_close($ch);
 
-                                    
-                                        if($status_code == 400)
-                                        {
-                                            http_response_code(400); 
-                                            echo json_encode($response);
+                                   
+                                            if($status_code == 200 || $status_code == 204)
+                                            {   
+                                                
+                                                    http_response_code(200); 
+                                                    $respuesta = "Datos enviados correctamente a Faceboook";
+                                                    echo json_encode($respuesta);
 
-                                        }
-                                        else
-                                        {
-                                            http_response_code(204); 
-                                            echo json_encode($response);
-                                        }
+                                            }
+                                            else
+                                            {
+                                                http_response_code(200); 
+                                                $respuesta = "Existe un problema al comunicarse con el API de Faceboook ERROR REPORTADO: ".$response;
+                                                 json_encode($respuesta);  
+                                            }
+
+
+                                
 
                                     }   
                                     else

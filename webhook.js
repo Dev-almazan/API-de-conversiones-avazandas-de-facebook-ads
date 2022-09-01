@@ -2,9 +2,11 @@
 window.onload = function(){
 
 
+
             document.querySelector('form').onsubmit=function()
             {
 
+              
         
                             /* 1 - obtenemos valores globales de los campos */
                         
@@ -44,17 +46,41 @@ window.onload = function(){
                 
                                 /*3- Enviamos datos a api */    
                                     
-                                        const data =  {
+                                        const datos =  {
                                             event_value : 'CompleteRegistration',
-                                            url_value : window.location,
+                                            url_value : document.domain,
+                                            navegador_value : navigator.userAgent,
                                             action_value : 'website',
                                             email_value : correo,
                                             phone_value : cel, 
                                             aliat_key: 'ALIAT-162098695936825',
                                             }
-                
-                                            console.log(data)
-                
+                                            
+                                        const url = 'https://aliatuniversidades.com.mx/ONALIAT/API/FACEBOOK/';
+                                        
+                                        fetch(url,{
+                                            method : 'POST',
+                                            //mode: 'no-cors',
+                                            body : JSON.stringify(datos),
+                                            headers: {
+                                                    'content-type': 'application/json'
+                                            }
+
+                                        }).then((respuesta) => {
+
+                                            console.log(respuesta.ok);
+                                            console.log(respuesta.status);
+                                            console.log(respuesta.json());
+
+                                          })
+                                          .catch((error) => {
+
+                                            console.log(error);
+
+                                          });
+                                
+                                         
+
                                 }
                 
 
