@@ -56,7 +56,7 @@ window.onload = function(){
                                             aliat_key: 'ALIAT-162098695936825',
                                             }
                                             
-                                        const url = 'https://aliatuniversidades.com.mx/ONALIAT/API/FACEBOOK/';
+                                        const url = 'https://midominio/api/fb/index.php';
                                         
                                         fetch(url,{
                                             method : 'POST',
