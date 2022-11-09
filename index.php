@@ -62,7 +62,7 @@
 
                                         /* 3 - CONECTAMOS CON API DE FACEBOOK */
        
-                                        $api = 'https://graph.facebook.com/v14.0/162098695936825/events?access_token=EAALMgvtn2LgBAKErMw0YGn7NquUkV9ZBnvPH6z9Rbf6mgl7Xq88O6X1ng8ZCTXT2zEiY6Xqngtlj17QGQ8rm9q7aV6w4Pycj9WXPGInyMbzYEuuf2VFqetPV4i6k6pJHJ0EgOtN9yo4FuZC901KqFNaYYI9te7maYotXGDfZAiaS2NwrXrkW';
+                                        $api = 'https://graph.facebook.com/v14.0/{idpixel}/events?access_token={token}';
 
 
 
@@ -84,7 +84,7 @@
                                         $fields = array();
 
                                         
-                                        $fields['access_token'] = 'EAALMgvtn2LgBAKErMw0YGn7NquUkV9ZBnvPH6z9Rbf6mgl7Xq88O6X1ng8ZCTXT2zEiY6Xqngtlj17QGQ8rm9q7aV6w4Pycj9WXPGInyMbzYEuuf2VFqetPV4i6k6pJHJ0EgOtN9yo4FuZC901KqFNaYYI9te7maYotXGDfZAiaS2NwrXrkW';
+                                        $fields['access_token'] = '';
                                         $fields['data'] = $array_data;
                                         $fields['test_event_code'] = 'TEST96287';
                                        
